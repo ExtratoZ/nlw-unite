@@ -65,12 +65,8 @@ let participantes = [
 
 const criarNovoPart = (participante) => {
     const dataInscricao = dayjs(Date.now()).to(participante.dataInscricao)
-    let dataCheckIn = dayjs(Date.now()).to(participante.dataCheckIn)
-    if (participante.dataCheckIn == null) { dataCheckIn =  `
-        <button data-email="${participante.email}" onclick="fazerCheckIn(event)">
-        Confirmar Check-in
-        </button>`
-    }
+    const dataCheckIn = participante.dataCheckIn ? dayjs(Date.now()).to(participante.dataCheckIn) :
+    `<button data-email="${participante.email}" onclick="fazerCheckIn(event)">Confirmar Check-in</button>`;
     return `
     <tr>
         <td><strong>${participante.nome}</strong></br><small>${participante.email}</small></td></br>
@@ -108,7 +104,7 @@ const adicionarPart = (event) => {
 
     // verificar se o participante já existe
     const participanteExiste = participantes.find(
-        (p) => p.email = participante.email
+        (p) => p.email == participante.email
     )
 
     if (participanteExiste) {
